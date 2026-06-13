@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IX A - Memory Engine 🎬</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:black;
+    color:white;
+    overflow:hidden;
+}
+
+/* 🎬 INTRO */
+#intro{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:black;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    animation:fadeOut 3.5s ease forwards;
+    animation-delay:3s;
+}
+
+#intro h1{
+    font-size:60px;
+    letter-spacing:6px;
+    animation:zoom 2s ease;
+}
+
+@keyframes zoom{
+    from{transform:scale(0.4);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+
+@keyframes fadeOut{
+    to{opacity:0;visibility:hidden}
+}
+
+/* 🌌 BACKGROUND STARS */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:0.2}
+    50%{opacity:1}
+}
+
+/* 🎞️ MAIN */
+.container{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+h1{font-size:42px}
+
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+    margin:5px;
+}
+
+.card{
+    margin-top:20px;
+    padding:15px;
+    width:80%;
+    background:rgba(255,255,255,0.06);
+    border-radius:15px;
+    transition:0.5s;
+}
+
+/* 📸 MEMORY DISPLAY */
+#memoryImg{
+    width:220px;
+    height:220px;
+    border-radius:15px;
+    object-fit:cover;
+    margin-top:10px;
+    transition:0.5s;
+}
+
+.fade{
+    opacity:0;
+    transform:scale(0.9);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎬 INTRO -->
+<div id="intro">
+    <h1>IX A</h1>
+    <p>Memory Engine Loading...</p>
+</div>
+
+<!-- 🌌 STARS -->
+<script>
+for(let i=0;i<80;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.top=Math.random()*100+"vh";
+    s.style.left=Math.random()*100+"vw";
+    document.body.appendChild(s);
+}
+</script>
+
+<!-- 🎞️ MAIN -->
+<div class="container">
+
+    <h1>🎓 IX A Memory Engine</h1>
+    <p>Klik untuk membuka kenangan acak...</p>
+
+    <button onclick="nextMemory()">▶ Play Memory</button>
+
+    <div class="card" id="card">
+        <h2 id="title">---</h2>
+        <p id="text">Tekan tombol untuk memulai kenangan</p>
+        <img id="memoryImg" src="">
+    </div>
+
+</div>
+
+<script>
+// 🎞️ MEMORY DATASET
+const memories = [
+{
+title:"🏫 Hari Pertama",
+text:"Kita belum kenal semua, tapi cerita sudah mulai berjalan.",
+img:"https://via.placeholder.com/300"
+},
+{
+title:"😂 Tawa Tak Terkontrol",
+text:"Hal kecil berubah jadi alasan tertawa paling keras.",
+img:"https://via.placeholder.com/301"
+},
+{
+title:"📚 Ujian & Stress",
+text:"Lelah, tapi tetap jalan bareng sampai akhir.",
+img:"https://via.placeholder.com/302"
+},
+{
+title:"💬 Obrolan Kelas",
+text:"Hal sepele yang ternyata jadi kenangan mahal.",
+img:"https://via.placeholder.com/303"
+},
+{
+title:"💔 Mendekati Perpisahan",
+text:"Kita mulai sadar waktu tidak menunggu.",
+img:"https://via.placeholder.com/304"
+},
+{
+title:"✨ IX A Selamanya",
+text:"Bukan tempatnya yang kita ingat, tapi orang-orangnya.",
+img:"https://via.placeholder.com/305"
+}
+];
+
+let index = 0;
+
+function nextMemory(){
+    const card = document.getElementById("card");
+    card.classList.add("fade");
+
+    setTimeout(()=>{
+        let m = memories[index];
+
+        document.getElementById("title").innerText = m.title;
+        document.getElementById("text").innerText = m.text;
+        document.getElementById("memoryImg").src = m.img;
+
+        card.classList.remove("fade");
+
+        index++;
+        if(index >= memories.length) index = 0;
+    },400);
+}
+</script>
+
+</body>
+</html>
